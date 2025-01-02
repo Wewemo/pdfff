@@ -123,20 +123,32 @@ namespace pdfff.Controllers
                 {
                     new { Title = "交期", Content = "2024-12-25", Height = 30.0 },
                     new { Title = "備註", Content = "請依標準規格處理", Height = 50.0 },
-                    new { Title = "注意事項", Content = "出貨時請附檢驗報告", Height = 40.0 },
+                    new { Title = "注意事項", Content = "1.敬請遵守以上物料、品質、數量並如期交貨。\n2.交貨廠商請於每月5日前將請款單隨發票送達會計整帳。\n3.本公司結帳日為每月25日。\n4.隨貨附發票&材質證明。", Height = 80.0 },
                 };
 
                 foreach (var note in notes)
                 {
+                    // 繪製標題欄
                     gfx.DrawRectangle(XPens.Black, 50, notesTableY, 80, note.Height);
                     gfx.DrawString(note.Title, fontRegular, XBrushes.Black,
                         new XRect(50, notesTableY, 80, note.Height), XStringFormats.Center);
 
+                    // 繪製內容欄
                     gfx.DrawRectangle(XPens.Black, 130, notesTableY, 370, note.Height);
-                    gfx.DrawString(note.Content, fontRegular, XBrushes.Black,
-                        new XRect(130, notesTableY, 400, note.Height), XStringFormats.CenterLeft);
 
-                    notesTableY += note.Height; // 直接加上當前行的高度，確保下一行緊接著
+                    // 處理多行文字
+                    var lines = note.Content.Split('\n'); // 以換行符號分割內容
+                    double lineHeight = 12; // 每行文字高度（可調整）
+                    double contentStartY = notesTableY + 10; // 文字起始 Y 座標，保留上方一點間距
+
+                    foreach (var line in lines)
+                    {
+                        gfx.DrawString(line, fontRegular, XBrushes.Black,
+                            new XRect(135, contentStartY, 360, lineHeight), XStringFormats.TopLeft);
+                        contentStartY += lineHeight; // 調整 Y 座標到下一行
+                    }
+
+                    notesTableY += note.Height; // 更新下一行表格起始 Y 座標
                 }
 
                 // 添加頁碼（置中）
