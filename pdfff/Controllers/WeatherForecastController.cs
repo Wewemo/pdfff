@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Fonts;
-using PdfSharpCore.Pdf;
-using SkiaSharp;
+using PdfSharp.Drawing;
+using PdfSharp.Fonts;
+using PdfSharp.Pdf;
 
 namespace pdfff.Controllers
 {
@@ -24,9 +23,9 @@ namespace pdfff.Controllers
                 var gfx = XGraphics.FromPdfPage(page);
 
                 // 設定字型
-                var fontRegular = new XFont("標楷體", 12, XFontStyle.Regular);
-                var fontBold = new XFont("標楷體", 16, XFontStyle.Bold);
-                var fontTitle = new XFont("標楷體", 20, XFontStyle.Bold);
+                var fontRegular = new XFont("標楷體", 12);
+                var fontBold = new XFont("標楷體", 16);
+                var fontTitle = new XFont("標楷體", 20);
 
                 // 添加 Logo 圖片
                 var logoPath = Path.Combine("wwwroot/images", "logo.png");
