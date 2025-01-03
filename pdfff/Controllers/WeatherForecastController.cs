@@ -37,7 +37,7 @@ namespace pdfff.Controllers
 
                 // 添加標題
                 gfx.DrawString("啟富興業股份有限公司", fontTitle, XBrushes.Black, new XRect(50, 30, page.Width - 100, 20), XStringFormats.TopCenter);
-                gfx.DrawString("詢價單", fontTitle, XBrushes.Black, new XRect(50, 60, page.Width - 100, 20), XStringFormats.TopCenter);
+                gfx.DrawString("進貨(採購單)", fontTitle, XBrushes.Black, new XRect(50, 60, page.Width - 100, 20), XStringFormats.TopCenter);
 
                 // 添加詢價單號和日期
                 gfx.DrawString("詢價單單號:IS20250102160301", fontRegular, XBrushes.Black, new XPoint(50, 90));
@@ -60,16 +60,16 @@ namespace pdfff.Controllers
                 gfx.DrawString("傳真號碼：-", fontRegular, XBrushes.Black, new XPoint(350, 220));
                 gfx.DrawString("地址：台中市潭子區中山路三段493巷8號", fontRegular, XBrushes.Black, new XPoint(350, 240));
 
-                // 添加詢價項目
-                gfx.DrawString("詢價項目", fontBold, XBrushes.Black, new XPoint(50, 275));
+                // 添加項目
+                gfx.DrawString("項目", fontBold, XBrushes.Black, new XPoint(30, 275));
 
                 // 添加表格
                 var tableStartY = 290;
-                var colWidths = new[] { 40, 180, 50, 50, 50, 80 }; // 欄位寬度
-                var headers = new[] { "項次", "品名規格", "厚度", "尺寸", "數量", "單價" };
+                var colWidths = new[] { 40, 140, 40, 50, 50, 40, 50, 70, 70 }; // 欄位寬度
+                var headers = new[] { "項次", "品名規格", "厚度", "尺寸", "重量", "數量", "單位", "單價", "金額" };
 
                 // 畫表頭
-                double x = 50;
+                double x = 30;
                 foreach (var header in headers)
                 {
                     gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, x, tableStartY, colWidths[Array.IndexOf(headers, header)], 20);
@@ -80,19 +80,19 @@ namespace pdfff.Controllers
                 // 表格內容
                 var items = new[]
                 {
-                    new { Index = 1, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 2, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 3, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 4, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 5, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 6, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 7, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
+                    new { Index = 1, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
+                    new { Index = 2, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
+                    new { Index = 3, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
+                    new { Index = 4, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
+                    new { Index = 5, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
+                    new { Index = 6, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
+                    new { Index = 7, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Weight = "2.4", Quantity = "1", Unit = "片", Uprice = "100", Money = "100" },
                 };
 
                 int rowIndex = 1;
                 foreach (var item in items)
                 {
-                    x = 50;
+                    x = 30;
                     double y = tableStartY + rowIndex * 20;
 
                     gfx.DrawRectangle(XPens.Black, x, y, colWidths[0], 20);
@@ -108,47 +108,99 @@ namespace pdfff.Controllers
                     gfx.DrawString(item.Size, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2], y, colWidths[3], 20), XStringFormats.Center);
 
                     gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3], y, colWidths[4], 20);
-                    gfx.DrawString(item.Quantity, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3], y, colWidths[4], 20), XStringFormats.Center);
+                    gfx.DrawString(item.Weight, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3], y, colWidths[4], 20), XStringFormats.Center);
 
-                    gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4], y, colWidths[5], 20);
-                    gfx.DrawString(item.Remark, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4], y, colWidths[5], 20), XStringFormats.Center);
+                    gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4],y, colWidths[5], 20);
+                    gfx.DrawString(item.Quantity, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4], y, colWidths[5], 20), XStringFormats.Center);
+
+                    gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5], y, colWidths[6], 20);
+                    gfx.DrawString(item.Unit, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5], y, colWidths[6], 20), XStringFormats.Center);
+
+                    gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5] + colWidths[6], y, colWidths[7], 20);
+                    gfx.DrawString(item.Uprice, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5] + colWidths[6], y, colWidths[7], 20), XStringFormats.Center);
+
+                    gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5] + colWidths[6] + colWidths[7], y, colWidths[8], 20);
+                    gfx.DrawString(item.Money, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5] + colWidths[6] + colWidths[7], y, colWidths[8], 20), XStringFormats.Center);
 
                     rowIndex++;
                 }
 
                 // 添加交期、備註與注意事項的表格
                 double notesTableY = tableStartY + (rowIndex + 0) * 20;
+                double totalHeight = 0; // 用於追蹤交期和備註的總高度
+
                 var notes = new[]
                 {
                     new { Title = "交期", Content = "2024-12-25", Height = 30.0 },
-                    new { Title = "備註", Content = "請依標準規格處理", Height = 50.0 },
-                    new { Title = "注意事項", Content = "1.敬請遵守以上物料、品質、數量並如期交貨。\n2.交貨廠商請於每月5日前將請款單隨發票送達會計整帳。\n3.本公司結帳日為每月25日。\n4.隨貨附發票&材質證明。", Height = 80.0 },
+                    new { Title = "備註", Content = "請依標準規格處理", Height = 90.0 },
+                    new { Title = "注意事項", Content = "1.敬請遵守以上物料、品質、數量並如期交貨。\n2.交貨廠商請於每月5日前將請款單隨發票送達會計整帳。\n3.本公司結帳日為每月25日。\n4.隨貨附發票&材質證明。", Height = 70.0 },
                 };
 
+                // 第一步：繪製左側兩欄
                 foreach (var note in notes)
                 {
                     // 繪製標題欄
-                    gfx.DrawRectangle(XPens.Black, 50, notesTableY, 80, note.Height);
+                    gfx.DrawRectangle(XPens.Black, 30, notesTableY, 80, note.Height);
                     gfx.DrawString(note.Title, fontRegular, XBrushes.Black,
-                        new XRect(50, notesTableY, 80, note.Height), XStringFormats.Center);
+                        new XRect(30, notesTableY, 80, note.Height), XStringFormats.Center);
 
                     // 繪製內容欄
-                    gfx.DrawRectangle(XPens.Black, 130, notesTableY, 370, note.Height);
+                    gfx.DrawRectangle(XPens.Black, 110, notesTableY, 350, note.Height);
 
                     // 處理多行文字
-                    var lines = note.Content.Split('\n'); // 以換行符號分割內容
-                    double lineHeight = 12; // 每行文字高度（可調整）
-                    double contentStartY = notesTableY + 10; // 文字起始 Y 座標，保留上方一點間距
+                    var lines = note.Content.Split('\n');
+                    double lineHeight = 12;
+                    double contentStartY = notesTableY + 10;
 
                     foreach (var line in lines)
                     {
                         gfx.DrawString(line, fontRegular, XBrushes.Black,
-                            new XRect(135, contentStartY, 360, lineHeight), XStringFormats.TopLeft);
-                        contentStartY += lineHeight; // 調整 Y 座標到下一行
+                            new XRect(115, contentStartY, 340, lineHeight), XStringFormats.TopLeft);
+                        contentStartY += lineHeight;
                     }
 
-                    notesTableY += note.Height; // 更新下一行表格起始 Y 座標
+                    if (note.Title == "交期" || note.Title == "備註")
+                    {
+                        totalHeight += note.Height;
+                    }
+                    else
+                    {
+                        // 只為注意事項繪製右側欄位的邊框
+                        gfx.DrawRectangle(XPens.Black, 460, notesTableY, 120, note.Height);
+                    }
+
+                    notesTableY += note.Height;
                 }
+
+                // 第二步：為合計欄繪製外框
+                double startY = tableStartY + (rowIndex + 0) * 20;
+                // 繪製合計欄的上下外框和右側邊框
+                gfx.DrawLine(XPens.Black, 460, startY, 580, startY); // 上邊框
+                gfx.DrawLine(XPens.Black, 460, startY + totalHeight, 580, startY + totalHeight); // 下邊框
+                gfx.DrawLine(XPens.Black, 580, startY, 580, startY + totalHeight); // 右邊框
+                gfx.DrawLine(XPens.Black, 460, startY, 460, startY + totalHeight); // 左邊框
+
+                // 第三步：添加合計資訊
+                // 計算位置
+                double amountStartY = startY + 30; // 留出一些上方間距
+                double textX = 470; // 文字起始位置（靠左）
+                double numberX = 560; // 數字結束位置（靠右）
+
+                // 繪製合計內容
+                gfx.DrawString("合計(未稅):", fontRegular, XBrushes.Black,
+                    new XRect(textX, amountStartY, 60, 12), XStringFormats.CenterLeft);
+                gfx.DrawString("700", fontRegular, XBrushes.Black,
+                    new XRect(textX, amountStartY, 90, 12), XStringFormats.CenterRight);
+
+                gfx.DrawString("稅金(5%):", fontRegular, XBrushes.Black,
+                    new XRect(textX, amountStartY + 25, 60, 12), XStringFormats.CenterLeft);
+                gfx.DrawString("35", fontRegular, XBrushes.Black,
+                    new XRect(textX, amountStartY + 25, 90, 12), XStringFormats.CenterRight);
+
+                gfx.DrawString("總價(含稅):", fontRegular, XBrushes.Black,
+                    new XRect(textX, amountStartY + 50, 60, 12), XStringFormats.CenterLeft);
+                gfx.DrawString("735", fontRegular, XBrushes.Black,
+                    new XRect(textX, amountStartY + 50, 90, 12), XStringFormats.CenterRight);
 
                 // 添加頁碼（置中）
                 gfx.DrawString($"-1-", fontRegular, XBrushes.Black, new XRect(0, page.Height - 50, page.Width, 20), XStringFormats.Center);
