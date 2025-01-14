@@ -37,14 +37,14 @@ namespace pdfff.Controllers
 
                 // 添加標題
                 gfx.DrawString("啟富興業股份有限公司", fontTitle, XBrushes.Black, new XRect(50, 30, page.Width - 100, 20), XStringFormats.TopCenter);
-                gfx.DrawString("詢價單", fontTitle, XBrushes.Black, new XRect(50, 60, page.Width - 100, 20), XStringFormats.TopCenter);
+                gfx.DrawString("報價單", fontTitle, XBrushes.Black, new XRect(50, 60, page.Width - 100, 20), XStringFormats.TopCenter);
 
-                // 添加詢價單號和日期
-                gfx.DrawString("詢價單單號:IS20250102160301", fontRegular, XBrushes.Black, new XPoint(50, 90));
+                // 添加報價單號和日期
+                gfx.DrawString("報價單單號:QT20250102160301", fontRegular, XBrushes.Black, new XPoint(50, 90));
                 gfx.DrawString("日期:"+DateTime.Now.ToString("yyyy-MM-dd HH:mm"), fontRegular, XBrushes.Black, new XPoint(425, 90));
 
-                // 添加公司資訊與供應商資訊
-                gfx.DrawString("供應商資訊", fontBold, XBrushes.Black, new XPoint(50, 120));
+                // 添加廠商資訊與客戶資訊
+                gfx.DrawString("客戶資訊", fontBold, XBrushes.Black, new XPoint(50, 120));
                 gfx.DrawString("名稱：測試2", fontRegular, XBrushes.Black, new XPoint(50, 140));
                 gfx.DrawString("統一編號：00000000", fontRegular, XBrushes.Black, new XPoint(50, 160));
                 gfx.DrawString("聯絡人：陳先生", fontRegular, XBrushes.Black, new XPoint(50, 180));
@@ -52,7 +52,7 @@ namespace pdfff.Controllers
                 gfx.DrawString("傳真號碼：04-00000000", fontRegular, XBrushes.Black, new XPoint(50, 220));
                 gfx.DrawString("地址：407台中市西屯區", fontRegular, XBrushes.Black, new XPoint(50, 240));
 
-                gfx.DrawString("公司資訊", fontBold, XBrushes.Black, new XPoint(350, 120));
+                gfx.DrawString("廠商資訊", fontBold, XBrushes.Black, new XPoint(350, 120));
                 gfx.DrawString("名稱：啟富興業股份有限公司", fontRegular, XBrushes.Black, new XPoint(350, 140));
                 gfx.DrawString("統一編號：00153661", fontRegular, XBrushes.Black, new XPoint(350, 160));
                 gfx.DrawString("聯絡人：李昱祺", fontRegular, XBrushes.Black, new XPoint(350, 180));
@@ -61,12 +61,12 @@ namespace pdfff.Controllers
                 gfx.DrawString("地址：台中市潭子區中山路三段493巷8號", fontRegular, XBrushes.Black, new XPoint(350, 240));
 
                 // 添加詢價項目
-                gfx.DrawString("詢價項目", fontBold, XBrushes.Black, new XPoint(50, 275));
+                gfx.DrawString("報價項目", fontBold, XBrushes.Black, new XPoint(50, 275));
 
                 // 添加表格
                 var tableStartY = 290;
-                var colWidths = new[] { 40, 180, 50, 50, 50, 80 }; // 欄位寬度
-                var headers = new[] { "項次", "品名規格", "厚度", "尺寸", "數量", "單價" };
+                var colWidths = new[] { 40, 180, 50, 50, 50, 80, 50 }; // 欄位寬度
+                var headers = new[] { "項次", "品名規格", "厚度", "尺寸", "數量", "單價", "金額" };
 
                 // 畫表頭
                 double x = 50;
@@ -80,13 +80,13 @@ namespace pdfff.Controllers
                 // 表格內容
                 var items = new[]
                 {
-                    new { Index = 1, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 2, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 3, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 4, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 5, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 6, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
-                    new { Index = 7, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "" },
+                    new { Index = 1, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "100", Amount = "100" },
+                    new { Index = 2, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "100", Amount = "100" },
+                    new { Index = 3, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "2", Remark = "50", Amount = "100" },
+                    new { Index = 4, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "100", Amount = "100" },
+                    new { Index = 5, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "100", Amount = "100" },
+                    new { Index = 6, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "100", Amount = "100" },
+                    new { Index = 7, Name = "不鏽鋼/304/2B/黑色膜", Thickness = "0.1", Size = "4'x8'", Quantity = "1", Remark = "1000", Amount = "1000" },
                 };
 
                 int rowIndex = 1;
@@ -112,6 +112,9 @@ namespace pdfff.Controllers
 
                     gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4], y, colWidths[5], 20);
                     gfx.DrawString(item.Remark, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4], y, colWidths[5], 20), XStringFormats.Center);
+
+                    gfx.DrawRectangle(XPens.Black, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5], y, colWidths[6], 20);
+                    gfx.DrawString(item.Remark, fontRegular, XBrushes.Black, new XRect(x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5], y, colWidths[6], 20), XStringFormats.Center);
 
                     rowIndex++;
                 }
