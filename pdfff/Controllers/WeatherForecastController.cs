@@ -41,7 +41,7 @@ namespace pdfff.Controllers
 
                 // 添加詢價單號和日期
                 gfx.DrawString("詢價單單號:IS20250102160301", fontRegular, XBrushes.Black, new XPoint(50, 90));
-                gfx.DrawString("日期:"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), fontRegular, XBrushes.Black, new XPoint(425, 90));
+                gfx.DrawString("日期:"+DateTime.Now.ToString("yyyy-MM-dd HH:mm"), fontRegular, XBrushes.Black, new XPoint(425, 90));
 
                 // 添加公司資訊與供應商資訊
                 gfx.DrawString("供應商資訊", fontBold, XBrushes.Black, new XPoint(50, 120));
