@@ -39,7 +39,7 @@ namespace pdfff.Controllers
                 gfx.DrawString("啟富興業股份有限公司", fontTitle, XBrushes.Black, new XRect(50, 30, page.Width - 100, 20), XStringFormats.TopCenter);
                 gfx.DrawString("進貨(採購單)", fontTitle, XBrushes.Black, new XRect(50, 60, page.Width - 100, 20), XStringFormats.TopCenter);
 
-                // 添加詢價單號和日期
+                // 添加採購單號和日期
                 gfx.DrawString("詢價單單號:IS20250102160301", fontRegular, XBrushes.Black, new XPoint(50, 90));
                 gfx.DrawString("日期:"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), fontRegular, XBrushes.Black, new XPoint(425, 90));
 
